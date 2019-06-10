@@ -31,6 +31,7 @@ func _ready():
 		CoreActive		= false
 		BoundNode		= get_parent()
 		if BoundNode is Control:
+			BoundNode.set_focus_mode(Control.FOCUS_CLICK)
 			BoundNode.connect("focus_entered",self,"Activate")
 			BoundNode.connect("focus_exited",self,"Deactivate")
 
@@ -111,12 +112,6 @@ func init_parse():
 func end_parse():
 	init_parse()
 
-func BoundNodeFocusOn():
-	call_deferred("Activate")
-	
-func BoundNodeFocusOff():
-	call_deferred("Deactivate")
-
 func Activate():
 	CoreActive = true
 
@@ -147,7 +142,7 @@ func _input(event):
 	elif (WaitNextTouch
 	 and !AllowDrag
 	 and event is InputEventScreenDrag):
-		prints("cant' alow drag")
+#		prints("cant' alow drag")
 		get_tree().set_input_as_handled()
 	elif WaitNextTouch:
 		pass
